@@ -1,0 +1,106 @@
+# Configuration for Financial Document Analysis
+
+# Model configurations
+models:
+  spacy_model: "en_core_web_sm"
+  sentiment_model: "ProsusAI/finbert"
+  summarization_model: "facebook/bart-large-cnn"
+  
+# Processing configurations
+processing:
+  max_text_length: 1024
+  min_sentence_length: 20
+  max_summary_sentences: 5
+  
+# Financial entity patterns
+financial_patterns:
+  revenue: "\$\\d+(?:\\.\\d+)?\\s?(?:billion|million|thousand|B|M|K)"
+  dividend: "\$\\d+\\.\\d+\\s?per\\s?share"
+  percentage: "\\d+(?:\\.\\d+)?%"
+  currency: "\$\\d+(?:,\\d{3})*(?:\\.\\d{2})?"
+  shares: "\\d+(?:,\\d{3})*(?:\\.\\d+)?\\s?(?:shares?|common\\s+shares?)"
+  market_cap: "\$\\d+(?:\\.\\d+)?\\s?(?:trillion|billion|million)"
+  eps: "\$\\d+\\.\\d+\\s?(?:per\\s+share|EPS)"
+  pe_ratio: "\\d+(?:\\.\\d+)?\\s?(?:x|times)"
+
+# Document types for classification
+document_types:
+  earnings_report:
+    - "quarterly"
+    - "earnings"
+    - "revenue"
+    - "profit"
+    - "loss"
+    - "EPS"
+    - "guidance"
+    - "outlook"
+    - "quarter"
+  annual_report:
+    - "annual"
+    - "year-end"
+    - "fiscal year"
+    - "audit"
+    - "auditor"
+    - "financial statements"
+    - "balance sheet"
+    - "cash flow"
+  press_release:
+    - "announces"
+    - "announced"
+    - "press release"
+    - "today"
+    - "breaking"
+    - "news"
+    - "update"
+  sec_filing:
+    - "SEC"
+    - "filing"
+    - "10-K"
+    - "10-Q"
+    - "8-K"
+    - "form"
+    - "exhibit"
+    - "schedule"
+    - "disclosure"
+  analyst_report:
+    - "analyst"
+    - "rating"
+    - "target price"
+    - "recommendation"
+    - "buy"
+    - "sell"
+    - "hold"
+    - "outperform"
+    - "underperform"
+
+# Evaluation metrics
+evaluation:
+  primary_metric: "f1_macro"
+  metrics:
+    - "accuracy"
+    - "precision_macro"
+    - "recall_macro"
+    - "f1_macro"
+    - "precision_weighted"
+    - "recall_weighted"
+    - "f1_weighted"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/financial_analysis.log"
+
+# Data paths
+data:
+  raw_documents: "data/raw/"
+  processed_documents: "data/processed/"
+  sample_documents: "data/samples/"
+  outputs: "assets/"
+
+# Demo configuration
+demo:
+  title: "Financial Document Analysis"
+  max_file_size: 10  # MB
+  supported_formats: ["txt", "pdf", "docx", "html"]
+  cache_models: true
